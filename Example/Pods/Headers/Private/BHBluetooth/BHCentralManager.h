@@ -1,0 +1,1 @@
+../../../../../BHBluetooth/Classes/BHCentralManager.h

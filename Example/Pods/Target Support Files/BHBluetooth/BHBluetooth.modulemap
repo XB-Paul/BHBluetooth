@@ -1,0 +1,6 @@
+framework module BHBluetooth {
+  umbrella header "BHBluetooth-umbrella.h"
+
+  export *
+  module * { export * }
+}

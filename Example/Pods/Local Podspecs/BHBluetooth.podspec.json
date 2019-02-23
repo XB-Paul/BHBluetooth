@@ -1,0 +1,22 @@
+{
+  "name": "BHBluetooth",
+  "version": "0.1.0",
+  "summary": "A short description of BHBluetooth.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/XB-Paul/BHBluetooth",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "XB-Paul": "xuebao.zhan@wwwarehouse.com"
+  },
+  "source": {
+    "git": "https://github.com/XB-Paul/BHBluetooth.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "9.0"
+  },
+  "source_files": "BHBluetooth/Classes/**/*"
+}

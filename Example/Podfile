@@ -1,0 +1,11 @@
+platform :ios, '9.0'
+
+target 'BHBluetooth_Example' do
+  pod 'BHBluetooth', :path => '../'
+
+  target 'BHBluetooth_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end

@@ -21,8 +21,10 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"123rr"];
+    [BHCentralManager shareInstance].ignorePeripheralIfUnnamed = YES;
+    [BHCentralManager shareInstance].delegate = self;
+
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [BHCentralManager shareInstance].delegate = self;
         [[BHCentralManager shareInstance] startScan];
     });
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stateChangeNotification:) name:BHCentralManagerStateDidChangeNotification object:nil];

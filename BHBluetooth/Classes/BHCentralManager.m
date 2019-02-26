@@ -49,7 +49,7 @@ NSString * const BHCentralManagerPeripheralConnectNotificationPeripheralTypeIden
     if (self) {
         _discoveredPeripheralArray = [[NSMutableArray alloc] init];
         _connectPeripheralDict = [[NSMutableDictionary alloc] init];
-        _centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:dispatch_queue_create("com.wwwarehouse.bh.centralmanager.queue", NULL) options:@{CBCentralManagerOptionShowPowerAlertKey : @(YES)}];
+        _ignorePeripheralIfUnnamed = NO;
     }
     return self;
 }
@@ -120,6 +120,12 @@ NSString * const BHCentralManagerPeripheralConnectNotificationPeripheralTypeIden
     return self.discoveredPeripheralArray;
 }
 
+- (CBCentralManager *)centralManager {
+    if (_centralManager == nil) {
+        _centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:dispatch_queue_create("com.wwwarehouse.bh.centralmanager.queue", NULL) options:@{CBCentralManagerOptionShowPowerAlertKey : @(YES)}];
+    }
+    return _centralManager;
+}
 #pragma mark-
 #pragma mark- CBCentralManagerDelegate
 
@@ -169,13 +175,17 @@ NSString * const BHCentralManagerPeripheralConnectNotificationPeripheralTypeIden
 }
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(nonnull CBPeripheral *)peripheral advertisementData:(nonnull NSDictionary<NSString *,id> *)advertisementData RSSI:(nonnull NSNumber *)RSSI {
-    [self updateDiscoverPeripheralArrayWithNewPeripheral:peripheral];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if ([self.delegate respondsToSelector:@selector(centralManager:didDiscoverPeripheral:advertisementData:RSSI:)]) {
-            [self.delegate centralManager:self didDiscoverPeripheral:peripheral advertisementData:advertisementData RSSI:RSSI];
-        }
-    });
+    if (peripheral.name == nil && self.ignorePeripheralIfUnnamed) {
+        
+    }else {
+        [self updateDiscoverPeripheralArrayWithNewPeripheral:peripheral];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([self.delegate respondsToSelector:@selector(centralManager:didDiscoverPeripheral:advertisementData:RSSI:)]) {
+                [self.delegate centralManager:self didDiscoverPeripheral:peripheral advertisementData:advertisementData RSSI:RSSI];
+            }
+        });
+    }
 }
 
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {

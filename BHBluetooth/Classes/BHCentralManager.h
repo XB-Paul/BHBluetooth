@@ -42,6 +42,12 @@ typedef NS_ENUM(NSInteger, BHCentralManagerState) {
 
 @property (nonatomic, assign, readonly) BHCentralManagerState state;
 
+
+/**
+ 是否忽略没有名称的外围设备(peripheral.name == nil)，默认为NO
+ */
+@property (nonatomic, assign) BOOL ignorePeripheralIfUnnamed;
+
 - (void)startScan;
 
 - (void)startScanForPeripheralsWithServices:(nullable NSArray<CBUUID *> *)serviceUUIDs options:(nullable NSDictionary<NSString *, id> *)options;
@@ -50,6 +56,13 @@ typedef NS_ENUM(NSInteger, BHCentralManagerState) {
 
 
 
+/**
+ 连接外围设备
+
+ @param peripheral 外围设备
+ @param options 参考连接方法的配置说明
+ @param typeIdentifier 为外围设备定义类型
+ */
 - (void)connectPeripheral:(CBPeripheral *)peripheral options:(nullable NSDictionary<NSString *, id> *)options typeIdentifier:(NSString *)typeIdentifier;
 
 - (CBPeripheral *)connectedPeripheralForTypeIdentifier:(NSString *)typeIdentifier;

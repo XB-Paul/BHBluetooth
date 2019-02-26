@@ -66,7 +66,7 @@
 		C49BD5D79870E522702031DF /* Pods-BHBluetooth_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BHBluetooth_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BHBluetooth_Tests/Pods-BHBluetooth_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		E907DF66C0E636AB76AB7B20 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		EC95D90B6D1D92FA3CD68A42 /* Pods-BHBluetooth_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BHBluetooth_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-BHBluetooth_Example/Pods-BHBluetooth_Example.release.xcconfig"; sourceTree = "<group>"; };
-		F52AD2D9719B6F016EFECAB6 /* BHBluetooth.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = BHBluetooth.podspec; path = ../BHBluetooth.podspec; sourceTree = "<group>"; };
+		F52AD2D9719B6F016EFECAB6 /* BHBluetooth.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = BHBluetooth.podspec; path = ../BHBluetooth.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */

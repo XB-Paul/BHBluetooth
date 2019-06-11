@@ -61,14 +61,8 @@ NSString * const BHCentralManagerPeripheralConnectNotificationPeripheralTypeIden
 - (void)startScanForPeripheralsWithServices:(nullable NSArray<CBUUID *> *)serviceUUIDs options:(nullable NSDictionary<NSString *, id> *)options {
     if (!self.isScanning) {
         [self.discoveredPeripheralArray removeAllObjects];
-        if (@available(iOS 10.0, *)) {
-            if (self.centralManager.state != CBManagerStatePoweredOn) {
-                return;
-            }
-        } else {
-            if (self.centralManager.state !=CBCentralManagerStatePoweredOn) {
-                return;
-            }
+        if (self.state != BHCentralManagerStatePoweredOn) {
+            return;
         }
         [self.centralManager scanForPeripheralsWithServices:serviceUUIDs options:options];
     }else {
@@ -126,49 +120,53 @@ NSString * const BHCentralManagerPeripheralConnectNotificationPeripheralTypeIden
     }
     return _centralManager;
 }
+
+- (BHCentralManagerState)state {
+    if (@available(iOS 10.0, *)) {
+        switch (self.centralManager.state) {
+            case CBManagerStateUnknown:
+                return BHCentralManagerStateUnknown;
+                break;
+            case CBManagerStatePoweredOn:
+                return BHCentralManagerStatePoweredOn;
+                break;
+            case CBManagerStatePoweredOff:
+                return BHCentralManagerStatePoweredOff;
+                break;
+            default:
+                return BHCentralManagerStateUnsupported;
+                break;
+        }
+    }else {
+        switch (self.centralManager.state) {
+            case CBCentralManagerStateUnknown:
+                return BHCentralManagerStateUnknown;
+                break;
+            case CBCentralManagerStatePoweredOn:
+                return BHCentralManagerStatePoweredOn;
+                break;
+            case CBCentralManagerStatePoweredOff:
+                return BHCentralManagerStatePoweredOff;
+                break;
+            default:
+                return BHCentralManagerStateUnsupported;
+                break;
+        }
+    }
+}
 #pragma mark-
 #pragma mark- CBCentralManagerDelegate
 
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central {
-    if (@available(iOS 10.0, *)) {
-        switch (central.state) {
-            case CBManagerStateUnknown:
-                self.state = BHCentralManagerStateUnknown;
-                break;
-            case CBManagerStatePoweredOn:
-                self.state = BHCentralManagerStatePoweredOn;
-                break;
-            case CBManagerStatePoweredOff:
-                self.state = BHCentralManagerStatePoweredOff;
-                break;
-            default:
-                self.state = BHCentralManagerStateUnsupported;
-                break;
-        }
-    }else {
-        switch (central.state) {
-            case CBCentralManagerStateUnknown:
-                self.state = BHCentralManagerStateUnknown;
-                break;
-            case CBCentralManagerStatePoweredOn:
-                self.state = BHCentralManagerStatePoweredOn;
-                break;
-            case CBCentralManagerStatePoweredOff:
-                self.state = BHCentralManagerStatePoweredOff;
-                break;
-            default:
-                self.state = BHCentralManagerStateUnsupported;
-                break;
-        }
-    }
-    if (self.state != BHCentralManagerStatePoweredOn) {
+    BHCentralManagerState state = [self state];
+    if (state != BHCentralManagerStatePoweredOn) {
         [self.discoveredPeripheralArray removeAllObjects];
     }
-    NSDictionary *userInfo = @{BHCentralManagerStateNotificationStateKey: @(self.state)};
+    NSDictionary *userInfo = @{BHCentralManagerStateNotificationStateKey: @(state)};
     dispatch_async(dispatch_get_main_queue(), ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:BHCentralManagerStateDidChangeNotification object:nil userInfo:userInfo];
         if ([self.delegate respondsToSelector:@selector(centralManagerDidUpdateState:)]) {
-            [self.delegate centralManager:self didUpdateState:self.state];
+            [self.delegate centralManager:self didUpdateState:state];
         }
     });
 

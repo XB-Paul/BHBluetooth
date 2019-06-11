@@ -9,7 +9,7 @@
 #import "BHViewController.h"
 #import <BHBluetooth/BHCentralManager.h>
 
-@interface BHViewController ()<BHCentralManagerDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface BHViewController ()<BHCentralManagerDelegate,UITableViewDelegate,UITableViewDataSource,CBPeripheralDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -48,11 +48,47 @@
 - (void)peripheralConnectNotification:(NSNotification *)notification {
     NSLog(@"peripheralConnectNotification:%@",notification.userInfo);
     [self.tableView reloadData];
+    CBPeripheral *peripheral = [notification.userInfo objectForKey:BHCentralManagerPeripheralConnectNotificationPeripheralKey];
+    peripheral.delegate = self;
+    [peripheral discoverServices:nil];
 }
 
+- (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error{
+    [peripheral.services enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [peripheral discoverCharacteristics:nil forService:(CBService *)obj];
+    }];
+}
+
+// 发现外设服务里的特征
+- (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error{
+    [service.characteristics enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [peripheral setNotifyValue:YES forCharacteristic:(CBCharacteristic *)obj];
+    }];
+}
+
+- (void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
+    NSString *string = [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
+    NSLog(@"didUpdateNotificationStateForCharacteristic:%@",string);
+}
 
 - (void)centralManager:(BHCentralManager *)centralManager didUpdateState:(BHCentralManagerState)state {
+    NSLog(@"didUpdateState:%li",state);
+}
+/**获取蓝牙传输的值*/
+- (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
+//    NSLog(@"value:%@",characteristic.value);
+
+    NSString *stringutf8 = [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
     
+    NSString *stringutf16 = [[NSString alloc] initWithData:characteristic.value encoding:NSUTF16StringEncoding];
+    
+    NSString *stringutf16big = [[NSString alloc] initWithData:characteristic.value encoding:NSUTF16BigEndianStringEncoding];
+    
+    NSString *stringutf16little = [[NSString alloc] initWithData:characteristic.value encoding:NSUTF16LittleEndianStringEncoding];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.title = [stringutf8 substringFromIndex:8];
+    });
+    NSLog(@"value:%@",stringutf8);
 }
 
 - (void)centralManager:(BHCentralManager *)centralManager didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary<NSString *,id> *)advertisementData RSSI:(NSNumber *)RSSI {

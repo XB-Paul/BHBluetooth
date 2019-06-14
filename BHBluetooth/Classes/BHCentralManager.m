@@ -165,7 +165,7 @@ NSString * const BHCentralManagerPeripheralConnectNotificationPeripheralTypeIden
     NSDictionary *userInfo = @{BHCentralManagerStateNotificationStateKey: @(state)};
     dispatch_async(dispatch_get_main_queue(), ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:BHCentralManagerStateDidChangeNotification object:nil userInfo:userInfo];
-        if ([self.delegate respondsToSelector:@selector(centralManagerDidUpdateState:)]) {
+        if ([self.delegate respondsToSelector:@selector(centralManager:didUpdateState:)]) {
             [self.delegate centralManager:self didUpdateState:state];
         }
     });

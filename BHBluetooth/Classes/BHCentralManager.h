@@ -29,7 +29,7 @@ typedef NS_ENUM(NSInteger, BHCentralManagerState) {
 @protocol BHCentralManagerDelegate;
 @interface BHCentralManager : NSObject
 
-+ (BHCentralManager *)shareInstance;
++ (instancetype)shareInstance;
 
 @property (nonatomic, weak) id<BHCentralManagerDelegate> delegate;
 

@@ -35,11 +35,11 @@ NSString * const BHCentralManagerPeripheralConnectNotificationPeripheralTypeIden
 
 @implementation BHCentralManager
 
-+ (BHCentralManager *)shareInstance {
++ (instancetype)shareInstance {
     static BHCentralManager *centralManager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        centralManager = [[BHCentralManager alloc] init];
+        centralManager = [[self alloc] init];
     });
     return centralManager;
 }

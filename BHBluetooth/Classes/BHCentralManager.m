@@ -90,6 +90,16 @@ NSString * const BHCentralManagerPeripheralConnectNotificationPeripheralTypeIden
     [self.centralManager connectPeripheral:peripheral options:options];
 }
 
+- (void)connectPeripheral:(CBPeripheral *)peripheral options:(NSDictionary<NSString *,id> *)options typeIdentifier:(NSString *)typeIdentifier timeout:(NSTimeInterval)timeout {
+    [self connectPeripheral:peripheral options:options typeIdentifier:typeIdentifier];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(timeout * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (peripheral.state == CBPeripheralStateConnecting) {
+            [self.centralManager cancelPeripheralConnection:peripheral];
+        }
+    });
+}
+
 - (CBPeripheral *)connectedPeripheralForTypeIdentifier:(NSString *)typeIdentifier {
     CBPeripheral *peripheral = [self.connectPeripheralDict objectForKey:typeIdentifier];
     return peripheral.state == CBPeripheralStateConnected ? peripheral : nil;

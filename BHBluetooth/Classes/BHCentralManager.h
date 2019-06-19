@@ -65,6 +65,8 @@ typedef NS_ENUM(NSInteger, BHCentralManagerState) {
  */
 - (void)connectPeripheral:(CBPeripheral *)peripheral options:(nullable NSDictionary<NSString *, id> *)options typeIdentifier:(NSString *)typeIdentifier;
 
+- (void)connectPeripheral:(CBPeripheral *)peripheral options:(nullable NSDictionary<NSString *, id> *)options typeIdentifier:(NSString *)typeIdentifier timeout:(NSTimeInterval)timeout;
+
 - (CBPeripheral *)connectedPeripheralForTypeIdentifier:(NSString *)typeIdentifier;
 
 - (void)cancelPeripheralConnection:(CBPeripheral *)peripheral;

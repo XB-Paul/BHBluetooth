@@ -187,7 +187,6 @@ NSString * const BHCentralManagerPeripheralConnectNotificationPeripheralTypeIden
 }
 
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
-    [self stopScan];
     [self.connectPeripheralDict setValue:peripheral forKey:peripheral.typeIdentifier];
     
     dispatch_async(dispatch_get_main_queue(), ^{

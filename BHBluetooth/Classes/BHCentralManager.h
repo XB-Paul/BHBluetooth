@@ -2,7 +2,7 @@
 //  BHCentralManager.h
 //  BHBluetooth
 //
-//  Created by 詹学宝 on 2019/2/22.
+//  Created by 学宝 on 2019/2/22.
 //
 
 #import <Foundation/Foundation.h>
@@ -80,14 +80,35 @@ typedef NS_ENUM(NSInteger, BHCentralManagerState) {
 
 @protocol BHCentralManagerDelegate <NSObject>
 
+
+/// 蓝牙管理器检测中心设备蓝牙状态变化的回调
+/// @param centralManager 蓝牙管理器
+/// @param state 中心设备蓝牙状态
 - (void)centralManager:(BHCentralManager *)centralManager didUpdateState:(BHCentralManagerState)state;
 
+
+/// 蓝牙管理器检索到外围设备的回调
+/// @param centralManager 蓝牙管理器
+/// @param peripheral 外围设备
+/// @param advertisementData 外围设备广播的信息
+/// @param RSSI 外围设备的信号强度
 - (void)centralManager:(BHCentralManager *)centralManager didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary<NSString *,id> *)advertisementData RSSI:(NSNumber *)RSSI;
 
+/// 蓝牙管理器检测到已连接到外围设备的回调
+/// @param centralManager 蓝牙管理器
+/// @param peripheral 外围设备
 - (void)centralManager:(BHCentralManager *)centralManager didConnectPeripheral:(CBPeripheral *)peripheral;
 
+/// 蓝牙管理器检测到连接外围设备失败的回调
+/// @param centralManager 蓝牙管理器
+/// @param peripheral 外围设备
+/// @param error 错误信息
 - (void)centralManager:(BHCentralManager *)centralManager didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error;
 
+/// 蓝牙管理器检测到失去了外围设备连接的回调
+/// @param centralManager 蓝牙管理器
+/// @param peripheral 外围设备
+/// @param error 错误信息
 - (void)centralManager:(BHCentralManager *)centralManager didDisconnectPeripheral:(CBPeripheral *)peripheral error:(nullable NSError *)error;
 
 

@@ -2,15 +2,15 @@
 //  BHCentralManager.m
 //  BHBluetooth
 //
-//  Created by 詹学宝 on 2019/2/22.
+//  Created by 学宝 on 2019/2/22.
 //
 
 #import "BHCentralManager.h"
 
-NSString * const BHCentralManagerStateDidChangeNotification = @"com.wwwarehouse.centralmanager.state.change";
+NSString * const BHCentralManagerStateDidChangeNotification = @"com.xuebao.centralmanager.state.change";
 NSString * const BHCentralManagerStateNotificationStateKey = @"BHCentralManagerNotification_StateKey";
 
-NSString * const BHCentralManagerPeripheralConnectDidChangeNotification = @"com.wwwarehouse.centralmanager.peripheralconnect.change";
+NSString * const BHCentralManagerPeripheralConnectDidChangeNotification = @"com.xuebao.centralmanager.peripheralconnect.change";
 NSString * const BHCentralManagerPeripheralConnectNotificationPeripheralKey = @"BHCentralManagerNotification_PeripheralKey";
 NSString * const BHCentralManagerPeripheralConnectNotificationPeripheralTypeIdentifierKey = @"BHCentralManagerNotification_PeripheralTypeIdentifierKey";
 
@@ -126,7 +126,7 @@ NSString * const BHCentralManagerPeripheralConnectNotificationPeripheralTypeIden
 
 - (CBCentralManager *)centralManager {
     if (_centralManager == nil) {
-        _centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:dispatch_queue_create("com.wwwarehouse.bh.centralmanager.queue", NULL) options:@{CBCentralManagerOptionShowPowerAlertKey : @(YES)}];
+        _centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:dispatch_queue_create("com.xuebao.bh.centralmanager.queue", NULL) options:@{CBCentralManagerOptionShowPowerAlertKey : @(YES)}];
     }
     return _centralManager;
 }
@@ -252,7 +252,7 @@ NSString * const BHCentralManagerPeripheralConnectNotificationPeripheralTypeIden
 
 #import <objc/runtime.h>
 
-static char const * kTypeIdentifierChar = "com.wwwarehouse.www.imageView.iamgeUrl.key";
+static char const * kTypeIdentifierChar = "com.xuebao.peripheral.type.key";
 
 @implementation CBPeripheral (BHExtend)
 

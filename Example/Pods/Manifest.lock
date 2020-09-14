@@ -1,5 +1,5 @@
 PODS:
-  - BHBluetooth (0.1.0)
+  - BHBluetooth (0.1.6)
 
 DEPENDENCIES:
   - BHBluetooth (from `../`)
@@ -9,8 +9,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  BHBluetooth: a241a5bbf8feb73a59e25a070d7616d154a589e8
+  BHBluetooth: ce7d96e915d06f64fde89891560131639d4855d4
 
 PODFILE CHECKSUM: 00fc3e8312f5b57c2d3bf9010f3424d484a32cc2
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.9.3

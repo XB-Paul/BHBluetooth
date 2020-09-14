@@ -1,9 +1,9 @@
 {
   "name": "BHBluetooth",
-  "version": "0.1.0",
+  "version": "0.1.6",
   "summary": "A short description of BHBluetooth.",
   "description": "TODO: Add long description of the pod here.",
-  "homepage": "https://github.com/XB-Paul/BHBluetooth",
+  "homepage": "https://github.com/WWWarehouseMobile/BHBluetooth",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
@@ -12,8 +12,8 @@
     "XB-Paul": "xuebao.zhan@wwwarehouse.com"
   },
   "source": {
-    "git": "https://github.com/XB-Paul/BHBluetooth.git",
-    "tag": "0.1.0"
+    "git": "git@github.com:WWWarehouseMobile/BHBluetooth.git",
+    "tag": "0.1.6"
   },
   "platforms": {
     "ios": "9.0"

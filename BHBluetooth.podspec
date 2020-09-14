@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'BHBluetooth'
-  s.version          = '0.1.6'
+  s.version          = '0.1.7'
   s.summary          = 'A short description of BHBluetooth.'
 
 # This description is used to generate tags and improve search results.
@@ -24,7 +24,7 @@ TODO: Add long description of the pod here.
   s.homepage         = 'https://github.com/WWWarehouseMobile/BHBluetooth'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'XB-Paul' => 'xuebao.zhan@wwwarehouse.com' }
+  s.author           = { '学宝' => 'xuebao.zhan@wwwarehouse.com' }
   s.source           = { :git => 'git@github.com:WWWarehouseMobile/BHBluetooth.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
